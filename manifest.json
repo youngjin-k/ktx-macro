@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "KTX Macro",
   "description": "KTX 자동 예약 매크로",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "permissions": [
     "http://www.letskorail.com/"
   ],
