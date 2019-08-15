@@ -155,7 +155,7 @@ const saveCheckboxState = () => {
 };
 
 (() => {
-    if (!document.querySelector('.btn_inq') || location.href !== MAIN_URI) {
+    if (!document.querySelector('.btn_inq') || !location.href.startsWith(MAIN_URI)) {
         return;
     }
 
