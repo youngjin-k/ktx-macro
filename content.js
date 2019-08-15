@@ -1,5 +1,6 @@
 let uid = 1;
 const MAIN_URI = 'http://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do';
+const LOGIN_PAGE_URI = 'http://www.letskorail.com/korail/com/login.do';
 
 const createCheckbox = () => {
     const $rows = document.querySelectorAll('#tableResult > tbody > tr');
@@ -25,6 +26,8 @@ const isChecked = uid => {
     return checkedItems.includes(String(uid));
 };
 
+const isLogin = () => !!document.querySelectorAll('.gnb_list > .log_nm').length;
+
 const getCheckboxTemplate = uid => {
     if (!uid) {
         return;
@@ -32,7 +35,7 @@ const getCheckboxTemplate = uid => {
 
     return `
             <label>
-                <input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(uid) && "checked"}>
+                <input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(uid) && 'checked'}>
                 매크로
             </label>
         `;
@@ -50,6 +53,13 @@ const setCheckboxEvent = () => {
 };
 
 const macroStart = () => {
+    if (!isLogin()) {
+        if (confirm('로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?')) {
+            location.href = LOGIN_PAGE_URI;
+        }
+        return;
+    }
+
     if (!sessionStorage.getItem('checkedItems')) {
         alert('선택 된 항목이 없습니다.\n1개 이상 선택해주세요.');
         return;
