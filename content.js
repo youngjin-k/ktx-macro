@@ -52,6 +52,14 @@ const setCheckboxEvent = () => {
     }
 };
 
+const setEscapeEvent = () => {
+    window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            macroStop();
+        }
+    });
+};
+
 const macroStart = () => {
     if (!isLogin()) {
         if (confirm('로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?')) {
@@ -65,7 +73,9 @@ const macroStart = () => {
         return;
     }
 
-    alert('자동 예매를 시작합니다.\n예매 성공 후 20분내에 결제하지 않을 경우 자동으로 예매가 취소됩니다.');
+    alert('자동 예매를 시작합니다.\n'
+        + '예매 성공 후 20분내에 결제하지 않을 경우 자동으로 예매가 취소됩니다.\n'
+        + '자동 예매 종료는 \'자동 예매 정지\' 혹은 esc키를 눌러주세요.');
 
     sessionStorage.setItem('macro', 'on');
 
@@ -163,6 +173,7 @@ const saveCheckboxState = () => {
 
     if (isStarted) {
         macro();
+        setEscapeEvent();
     } else {
         sessionStorage.removeItem('checkedItems');
     }
