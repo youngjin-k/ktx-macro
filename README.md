@@ -1,9 +1,16 @@
 # KTX Macro
 
+<a href="https://www.buymeacoffee.com/youngjin" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 KTX Macro는 매진된 KTX 승차권 예매를 자동으로 수행해주는 크롬 확장 프로그램입니다.
 
 - [크롬 웹스토어](https://chrome.google.com/webstore/detail/ktx-macro/knbnfbamcpabcpkimmfoefmjdcgdmelh?hl=ko)
 - [네이버 웨일 스토어](https://store.whale.naver.com/detail/jemeiafiimpbklkolofpkheakjofofcg)
+
+#### 2019.08.15 업데이트 내용
+1. esc키를 입력하여 매크로를 정지할 수 있도록 개선 되었습니다.
+2. 매크로 시작 시 로그인 여부를 확인하여 알려주도록 개선 되었습니다.
+3. 다음 페이지 이동 시 정상적으로 작동되지 않던 오류가 개선 되었습니다.
 
 ### 사용 방법
 1. 크롬 확장프로그램(네이버 웨일 스토어에서도 설치 가능)을 설치합니다.
