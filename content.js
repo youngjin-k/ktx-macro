@@ -107,8 +107,8 @@ const macro = () => {
         if (isChecked(++uid)) {
             $row.querySelector('td:nth-child(5)').style.backgroundColor = '#f03e3e';
             const $button = $row
-                    .querySelector('td:nth-child(5)')
-                    .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
+                .querySelector('td:nth-child(5)')
+                .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
                 || $row
                     .querySelector('td:nth-child(5)')
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
@@ -116,7 +116,8 @@ const macro = () => {
             if ($button) {
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({type: 'playSound'});
+                chrome.extension.sendMessage({ type: 'playSound' });
+                sendTelegramMessage();
                 break;
             }
         }
@@ -124,8 +125,8 @@ const macro = () => {
         if (isChecked(++uid)) {
             $row.querySelector('td:nth-child(6)').style.backgroundColor = '#f03e3e';
             const $button = $row
-                    .querySelector('td:nth-child(6)')
-                    .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
+                .querySelector('td:nth-child(6)')
+                .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
                 || $row
                     .querySelector('td:nth-child(6)')
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
@@ -133,7 +134,8 @@ const macro = () => {
             if ($button) {
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({type: 'playSound'});
+                chrome.extension.sendMessage({ type: 'playSound' });
+                sendTelegramMessage();
                 break;
             }
         }
@@ -163,6 +165,22 @@ const saveCheckboxState = () => {
         sessionStorage.removeItem('checkedItems');
     }
 };
+
+const sendTelegramMessage = () => {
+    const botToken = '816368262:AAGIeE1CpaV5agWkmOSDfjdhRBnQOCyNw_o';
+    const chatId = '956440842';
+    const msg = '예약 되었습니다.';
+    const url = 'https://api.telegram.org/bot' + botToken + '/sendmessage?chat_id=' + chatId + '&text=' + msg;
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            const response = xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open('GET', url, true);
+    xmlhttp.send();
+}
 
 (() => {
     if (!document.querySelector('.btn_inq') || !location.href.startsWith(MAIN_URI)) {
