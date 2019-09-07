@@ -114,10 +114,10 @@ const macro = () => {
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
             if ($button) {
+                sendTelegramMessage();
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
                 chrome.extension.sendMessage({ type: 'playSound' });
-                sendTelegramMessage();
                 break;
             }
         }
@@ -132,10 +132,10 @@ const macro = () => {
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
             if ($button) {
+                sendTelegramMessage();
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
                 chrome.extension.sendMessage({ type: 'playSound' });
-                sendTelegramMessage();
                 break;
             }
         }
