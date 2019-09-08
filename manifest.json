@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "KTX Macro",
   "description": "KTX 자동 예약 매크로",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "permissions": [
     "http://www.letskorail.com/"
   ],
@@ -30,5 +30,9 @@
   "web_accessible_resources": [
     "inject.js",
     "assets/tada.mp3"
-  ]
+  ],
+  "browser_action": {
+    "default_title": "telegram",
+    "default_popup": "popup.html"
+  }
 }

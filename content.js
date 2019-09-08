@@ -91,7 +91,6 @@ const macroStop = () => {
 };
 
 const macro = () => {
-    let i = 0;
     let uid = 0;
     let $row;
     const $rows = document.querySelectorAll('#tableResult > tbody > tr');
@@ -101,7 +100,7 @@ const macro = () => {
         return;
     }
 
-    for (; i < len; i++) {
+    for (let i = 0; i < len; i++) {
         $row = $rows[i];
 
         if (isChecked(++uid)) {
@@ -114,10 +113,9 @@ const macro = () => {
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
             if ($button) {
-                sendTelegramMessage();
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({ type: 'playSound' });
+                chrome.extension.sendMessage({ type: 'successTicketing' });
                 break;
             }
         }
@@ -132,10 +130,9 @@ const macro = () => {
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
             if ($button) {
-                sendTelegramMessage();
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({ type: 'playSound' });
+                chrome.extension.sendMessage({ type: 'successTicketing' });
                 break;
             }
         }
@@ -149,11 +146,10 @@ const reload = () => {
 };
 
 const saveCheckboxState = () => {
-    let i = 0;
     let checkedItems = [];
     const $checkboxes = document.querySelectorAll('.ktx-macro-checkbox');
 
-    for (; i < $checkboxes.length; i++) {
+    for (let i = 0; i < $checkboxes.length; i++) {
         if ($checkboxes[i].checked) {
             checkedItems.push($checkboxes[i].value);
         }
@@ -165,22 +161,6 @@ const saveCheckboxState = () => {
         sessionStorage.removeItem('checkedItems');
     }
 };
-
-const sendTelegramMessage = () => {
-    const botToken = '816368262:AAGIeE1CpaV5agWkmOSDfjdhRBnQOCyNw_o';
-    const chatId = '956440842';
-    const msg = '예약 되었습니다.';
-    const url = 'https://api.telegram.org/bot' + botToken + '/sendmessage?chat_id=' + chatId + '&text=' + msg;
-
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            const response = xmlhttp.responseText;
-        }
-    }
-    xmlhttp.open('GET', url, true);
-    xmlhttp.send();
-}
 
 (() => {
     if (!document.querySelector('.btn_inq') || !location.href.startsWith(MAIN_URI)) {
