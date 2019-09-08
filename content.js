@@ -91,7 +91,6 @@ const macroStop = () => {
 };
 
 const macro = () => {
-    let i = 0;
     let uid = 0;
     let $row;
     const $rows = document.querySelectorAll('#tableResult > tbody > tr');
@@ -101,14 +100,14 @@ const macro = () => {
         return;
     }
 
-    for (; i < len; i++) {
+    for (let i = 0; i < len; i++) {
         $row = $rows[i];
 
         if (isChecked(++uid)) {
             $row.querySelector('td:nth-child(5)').style.backgroundColor = '#f03e3e';
             const $button = $row
-                    .querySelector('td:nth-child(5)')
-                    .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
+                .querySelector('td:nth-child(5)')
+                .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
                 || $row
                     .querySelector('td:nth-child(5)')
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
@@ -116,7 +115,7 @@ const macro = () => {
             if ($button) {
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({type: 'playSound'});
+                chrome.extension.sendMessage({ type: 'successTicketing' });
                 break;
             }
         }
@@ -124,8 +123,8 @@ const macro = () => {
         if (isChecked(++uid)) {
             $row.querySelector('td:nth-child(6)').style.backgroundColor = '#f03e3e';
             const $button = $row
-                    .querySelector('td:nth-child(6)')
-                    .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
+                .querySelector('td:nth-child(6)')
+                .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]')
                 || $row
                     .querySelector('td:nth-child(6)')
                     .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
@@ -133,7 +132,7 @@ const macro = () => {
             if ($button) {
                 $button.closest('a').click();
                 sessionStorage.removeItem('macro');
-                chrome.extension.sendMessage({type: 'playSound'});
+                chrome.extension.sendMessage({ type: 'successTicketing' });
                 break;
             }
         }
@@ -147,11 +146,10 @@ const reload = () => {
 };
 
 const saveCheckboxState = () => {
-    let i = 0;
     let checkedItems = [];
     const $checkboxes = document.querySelectorAll('.ktx-macro-checkbox');
 
-    for (; i < $checkboxes.length; i++) {
+    for (let i = 0; i < $checkboxes.length; i++) {
         if ($checkboxes[i].checked) {
             checkedItems.push($checkboxes[i].value);
         }
