@@ -20,7 +20,7 @@ const createCheckbox = () => {
 };
 
 const isChecked = uid => {
-  const checkedItemsStr = sessionStorage.getItem("checkedItems");
+  const checkedItemsStr = localStorage.getItem("checkedItems");
   const checkedItems = checkedItemsStr ? checkedItemsStr.split(",") : [];
 
   if (!checkedItems.length) {
@@ -73,7 +73,7 @@ const macroStart = () => {
     return;
   }
 
-  if (!sessionStorage.getItem("checkedItems")) {
+  if (!localStorage.getItem("checkedItems")) {
     alert("선택 된 항목이 없습니다.\n1개 이상 선택해주세요.");
     return;
   }
@@ -84,15 +84,15 @@ const macroStart = () => {
       "자동 예매 종료는 '자동 예매 정지' 혹은 esc키를 눌러주세요."
   );
 
-  sessionStorage.setItem("macro", "on");
+  localStorage.setItem("macro", "on");
 
   reload();
 };
 
 const macroStop = () => {
   alert("자동 예매를 종료합니다.");
-  sessionStorage.removeItem("macro");
-  sessionStorage.removeItem("checkedItems");
+  localStorage.removeItem("macro");
+  localStorage.removeItem("checkedItems");
 
   reload();
 };
@@ -122,7 +122,7 @@ const macro = () => {
 
       if ($button) {
         $button.closest("a").click();
-        sessionStorage.removeItem("macro");
+        localStorage.removeItem("macro");
         chrome.extension.sendMessage({ type: "successTicketing" });
         break;
       }
@@ -140,7 +140,7 @@ const macro = () => {
 
       if ($button) {
         $button.closest("a").click();
-        sessionStorage.removeItem("macro");
+        localStorage.removeItem("macro");
         chrome.extension.sendMessage({ type: "successTicketing" });
         break;
       }
@@ -165,9 +165,9 @@ const saveCheckboxState = () => {
   }
 
   if (checkedItems.length) {
-    sessionStorage.setItem("checkedItems", checkedItems.join(","));
+    localStorage.setItem("checkedItems", checkedItems.join(","));
   } else {
-    sessionStorage.removeItem("checkedItems");
+    localStorage.removeItem("checkedItems");
   }
 };
 
@@ -179,13 +179,13 @@ const saveCheckboxState = () => {
     return;
   }
 
-  const isStarted = sessionStorage.getItem("macro") === "on";
+  const isStarted = localStorage.getItem("macro") === "on";
 
   if (isStarted) {
     macro();
     setEscapeEvent();
   } else {
-    sessionStorage.removeItem("checkedItems");
+    localStorage.removeItem("checkedItems");
   }
 
   document.querySelector(".btn_inq").insertAdjacentHTML(
