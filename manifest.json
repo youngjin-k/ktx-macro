@@ -2,35 +2,24 @@
   "manifest_version": 2,
   "name": "KTX Macro",
   "description": "KTX 자동 예약 매크로",
-  "version": "1.1.0",
-  "permissions": [
-    "http://www.letskorail.com/"
-  ],
+  "version": "1.2.0",
+  "permissions": ["http://www.letskorail.com/"],
   "icons": {
     "96": "icon96.png"
   },
   "content_scripts": [
     {
       "all_frames": true,
-      "js": [
-        "content.js"
-      ],
-      "css": [
-        "content.css"
-      ],
-      "matches": [
-        "http://www.letskorail.com/*"
-      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "matches": ["http://www.letskorail.com/*"],
       "run_at": "document_end"
     }
   ],
   "background": {
     "page": "background.html"
   },
-  "web_accessible_resources": [
-    "inject.js",
-    "assets/tada.mp3"
-  ],
+  "web_accessible_resources": ["inject.js", "assets/tada.mp3"],
   "browser_action": {
     "default_title": "telegram",
     "default_popup": "popup.html"
