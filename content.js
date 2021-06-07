@@ -1,6 +1,6 @@
 let uid = 1;
-const MAIN_URI = "http://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do";
-const LOGIN_PAGE_URI = "http://www.letskorail.com/korail/com/login.do";
+const MAIN_URI = "https://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do";
+const LOGIN_PAGE_URI = "https://www.letskorail.com/korail/com/login.do";
 
 const createCheckbox = () => {
   const $rows = document.querySelectorAll("#tableResult > tbody > tr");
