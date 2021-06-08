@@ -5,7 +5,6 @@
 KTX Macro는 매진된 KTX 승차권 예매를 자동으로 수행해주는 크롬 확장 프로그램입니다.
 
 - [크롬 웹스토어](https://chrome.google.com/webstore/detail/ktx-macro/knbnfbamcpabcpkimmfoefmjdcgdmelh?hl=ko)
-- [네이버 웨일 스토어](https://store.whale.naver.com/detail/jemeiafiimpbklkolofpkheakjofofcg)
 
 #### 2019.09.08 업데이트 내용
 예약 완료 시 텔레그램으로 알림 메세지를 보낼 수 있는 기능이 추가되었습니다!
