@@ -16,6 +16,9 @@ const createCheckbox = () => {
     $row
       .querySelector("td:nth-child(6)")
       .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
+    $row
+      .querySelector("td:nth-child(10)")
+      .insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
   });
 };
 
@@ -137,6 +140,24 @@ const macro = () => {
         $row
           .querySelector("td:nth-child(6)")
           .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
+
+      if ($button) {
+        $button.closest("a").click();
+        localStorage.removeItem("macro");
+        chrome.extension.sendMessage({ type: "successTicketing" });
+        break;
+      }
+    }
+
+    if (isChecked(++uid)) {
+      $row.querySelector("td:nth-child(10)").style.backgroundColor = "#f03e3e";
+      const $button =
+          $row
+              .querySelector("td:nth-child(10)")
+              .querySelector('[src="/docs/2007/img/common/icon_wait.gif"]') ||
+          $row
+              .querySelector("td:nth-child(10)")
+              .querySelector('[src="/docs/2007/img/common/icon_wait.gif"]');
 
       if ($button) {
         $button.closest("a").click();
