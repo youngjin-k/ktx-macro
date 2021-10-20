@@ -115,10 +115,7 @@ const macro = () => {
       const $button =
         $row
           .querySelector("td:nth-child(5)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]') ||
-        $row
-          .querySelector("td:nth-child(5)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
+          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"], [src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
       if ($button) {
         $button.closest("a").click();
@@ -133,10 +130,7 @@ const macro = () => {
       const $button =
         $row
           .querySelector("td:nth-child(6)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"]') ||
-        $row
-          .querySelector("td:nth-child(6)")
-          .querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
+          .querySelector('[src="/docs/2007/img/common/icon_apm_bl.gif"], [src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
       if ($button) {
         $button.closest("a").click();
