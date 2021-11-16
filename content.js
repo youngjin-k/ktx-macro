@@ -41,12 +41,12 @@ const getCheckboxTemplate = uid => {
   }
 
   return `
-    <label>
-      <input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(
-    uid
-  ) && "checked"}>
-    매크로
-  </label>
+    <div>
+      <label>
+        <input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(uid) && "checked"}>
+        매크로
+      </label>
+    </div>
   `;
 };
 
@@ -207,9 +207,9 @@ const saveCheckboxState = () => {
   document.querySelector(".btn_inq").insertAdjacentHTML(
     "beforeend",
     `
-        <button type="button" class="ktx-macro-button">${
-          isStarted ? "자동 예매 정지" : "자동 예매 시작"
-        }</button>
+      <button type="button" class="ktx-macro-button">
+        ${isStarted ? "자동 예매 정지" : "자동 예매 시작"}
+      </button>
     `
   );
 
