@@ -7,6 +7,9 @@ KTX Macro는 매진된 KTX 승차권 예매를 자동으로 수행해주는 크�
 - [크롬 웹스토어](https://chrome.google.com/webstore/detail/ktx-macro/knbnfbamcpabcpkimmfoefmjdcgdmelh?hl=ko)
 
 
+#### 2021.11.16 업데이트 내용
+예약 대기 신청 기능이 추가되었습니다.
+
 #### 2021.06.07 업데이트 내용
 예매 기능이 보여지지 않는 현상이 수정되었습니다.
 
