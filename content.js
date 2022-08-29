@@ -219,4 +219,17 @@ const saveCheckboxState = () => {
 
   createCheckbox();
   setCheckboxEvent();
+
+  //인원 확인 컨펌 무시
+  var s = document.createElement('script');
+  s.innerHTML = 
+    "const origin_confirm = confirm;" + 
+    "confirm = function(message){" + 
+      "console.log('confirm: ' + message);" + 
+      "if (message.indexOf('맞습니까') != -1) {" +
+        "return true;" + 
+      "}" + 
+      "return origin_confirm(message);" + 
+  "};";
+  document.body.appendChild(s);
 })();
