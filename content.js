@@ -176,6 +176,34 @@ const reload = () => {
 	document.querySelector(".btn_inq > a").click();
 };
 
+//인원 확인 컨펌 무시
+const ignoreConfirmPeople = () => {
+	var s = document.createElement('script');
+	s.innerHTML = `
+		const origin_confirm = confirm;
+		confirm = function (message) {
+			console.log('confirm: ' + message);
+			if (message.indexOf('맞습니까') != -1) {
+				return true;
+			}
+			return origin_confirm(message);
+		}
+	`;
+	document.body.appendChild(s);
+}
+
+//일일 팝업 무시
+const ignoreDailyPopup = () => {
+	var s = document.createElement('script');
+	s.innerHTML = `;
+		if (typeof('openGwangjuShuttleDialog') != 'undefined') {
+			console.log('disable openGwangjuShuttleDialog');
+			openGwangjuShuttleDialog = function () {};
+		}
+	`;
+	document.body.appendChild(s);
+}
+
 const saveCheckboxState = () => {
 	let checkedItems = [];
 	const $checkboxes = document.querySelectorAll(".ktx-macro-checkbox");
@@ -203,7 +231,10 @@ const checkAllCheckbox = () => {
 };
 
 (() => {
-	if (location.href.startsWith(POPUP_URI) && document.querySelector(".btn_blue_ang")) {
+	if (location.href.startsWith(POPUP_URI)) {
+		if (!document.querySelector(".btn_blue_ang"))
+			return;
+
 		var s = document.createElement('script');
 		s.innerHTML = `
 			var btn_blue_ang = document.querySelector('.btn_blue_ang');
@@ -254,17 +285,6 @@ const checkAllCheckbox = () => {
 
 	createCheckbox();
 	setCheckboxEvent();
-
-	//인원 확인 컨펌 무시
-	var s = document.createElement('script');
-	s.innerHTML = 
-		"const origin_confirm = confirm;" + 
-		"confirm = function(message){" + 
-			"console.log('confirm: ' + message);" + 
-			"if (message.indexOf('맞습니까') != -1) {" +
-				"return true;" + 
-			"}" + 
-			"return origin_confirm(message);" + 
-	"};";
-	document.body.appendChild(s);
+	ignoreConfirmPeople();
+	ignoreDailyPopup();
 })();
