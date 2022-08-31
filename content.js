@@ -176,6 +176,23 @@ const reload = () => {
 	document.querySelector(".btn_inq > a").click();
 };
 
+//nonstop 팝업 무시
+const ignoreNonstopPopup = () => {
+	var s = document.createElement('script');
+	s.innerHTML = `
+		if (typeof(Nopeople2) == 'function') {
+			console.log('disable Nopeople2');
+			const originNopeople2 = Nopeople2;
+			Nopeople2 = function (intPsrm, intIdxNo, iAddInfo4, callback) {
+				console.log('remove h_nonstop_msg. ' + train[intIdxNo].h_nonstop_msg);
+				train[intIdxNo].h_nonstop_msg = '';
+				return originNopeople2(intPsrm, intIdxNo, iAddInfo4, callback);
+			}
+		}
+	`;
+	document.body.appendChild(s);
+}
+
 //인원 확인 컨펌 무시
 const ignoreConfirmPeople = () => {
 	var s = document.createElement('script');
@@ -196,7 +213,7 @@ const ignoreConfirmPeople = () => {
 const ignoreDailyPopup = () => {
 	var s = document.createElement('script');
 	s.innerHTML = `;
-		if (typeof('openGwangjuShuttleDialog') != 'undefined') {
+		if (typeof(openGwangjuShuttleDialog) == 'function') {
 			console.log('disable openGwangjuShuttleDialog');
 			openGwangjuShuttleDialog = function () {};
 		}
@@ -285,6 +302,7 @@ const checkAllCheckbox = () => {
 
 	createCheckbox();
 	setCheckboxEvent();
+	ignoreNonstopPopup();
 	ignoreConfirmPeople();
 	ignoreDailyPopup();
 })();
