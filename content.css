@@ -13,7 +13,8 @@
 }
 
 .check-all-button {
-	width: 175px;
+	padding-left: 10px;
+	padding-right: 10px;
 	height: 38px;
 	line-height: 38px;
 	text-align: center;
