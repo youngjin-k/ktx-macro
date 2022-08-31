@@ -1,13 +1,27 @@
 .ktx-macro-button {
-    width: 175px;
-    height: 38px;
-    line-height: 38px;
-    text-align: center;
-    background: #f46b45;
-    background: -webkit-linear-gradient(to bottom, #eea849, #f46b45);
-    background: linear-gradient(to bottom, #eea849, #f46b45);
-    color: #ffffff;
-    font-size: 13px;
-    border: 1px solid #f76707;
-    cursor: pointer;
+	width: 175px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	background: #f46b45;
+	background: -webkit-linear-gradient(to bottom, #eea849, #f46b45);
+	background: linear-gradient(to bottom, #eea849, #f46b45);
+	color: #ffffff;
+	font-size: 13px;
+	border: 1px solid #f76707;
+	cursor: pointer;
+}
+
+.check-all-button {
+	width: 175px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	background: #f46b45;
+	background: -webkit-linear-gradient(to bottom, #eea849, #f46b45);
+	background: linear-gradient(to bottom, #eea849, #f46b45);
+	color: #ffffff;
+	font-size: 13px;
+	border: 1px solid #f76707;
+	cursor: pointer;
 }
