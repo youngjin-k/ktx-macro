@@ -1,6 +1,7 @@
 let uid = 1;
 const MAIN_URI = "https://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do";
 const LOGIN_PAGE_URI = "https://www.letskorail.com/korail/com/login.do";
+const POPUP_URI = "https://www.letskorail.com/docs/pz/pz_msg_pop1.jsp";
 
 const createCheckbox = () => {
 	const $rows = document.querySelectorAll("#tableResult > tbody > tr");
@@ -202,6 +203,21 @@ const checkAllCheckbox = () => {
 };
 
 (() => {
+	if (location.href.startsWith(POPUP_URI) && document.querySelector(".btn_blue_ang")) {
+		var s = document.createElement('script');
+		s.innerHTML = `
+			window.onload = function () {
+				var btn_blue_ang = document.querySelector('.btn_blue_ang');
+				if (btn_blue_ang.text.indexOf('예매 계속 진행하기') != -1) {
+					console.log('close popup');
+					setTimeout(f_close, 1000);
+				}
+			};
+		`;
+		document.body.appendChild(s);
+		return;
+	}
+
 	if (
 		!document.querySelector(".btn_inq") ||
 		!location.href.startsWith(MAIN_URI)
