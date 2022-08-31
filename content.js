@@ -105,6 +105,7 @@ const macro = () => {
 	let $row;
 	const $rows = document.querySelectorAll("#tableResult > tbody > tr");
 	const len = $rows.length;
+	var succeeded = false;
 
 	if (!len) {
 		return;
@@ -127,6 +128,7 @@ const macro = () => {
 				$button.closest("a").click();
 				localStorage.removeItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
+				succeeded = true;
 				break;
 			}
 		}
@@ -145,6 +147,7 @@ const macro = () => {
 				$button.closest("a").click();
 				localStorage.removeItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
+				succeeded = true;
 				break;
 			}
 		}
@@ -158,12 +161,14 @@ const macro = () => {
 				$button.closest("a").click();
 				localStorage.removeItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
+				succeeded = true;
 				break;
 			}
 		}
 	}
 
-	setTimeout(reload, 1000);
+	if (!succeeded)
+		setTimeout(reload, 1000);
 };
 
 const reload = () => {
