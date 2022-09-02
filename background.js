@@ -1,3 +1,5 @@
+let tabs = [];
+
 const playSound = () => {
     if (typeof (audio) != "undefined" && audio) {
         audio.pause();
@@ -25,6 +27,32 @@ const sendTelegramMessage = () => {
     fetch(url);
 }
 
+function addTab(tabid) {
+	if (tabs.indexOf(tabid) === -1)
+		tabs.push(tabid);
+}
+
+function removeTab(tabid) {
+	console.log('remove tab tabs: ' + tabs + ', tabid: ' + tabid);
+	var index = tabs.indexOf(tabid);
+	if (index != -1)
+		tabs.splice(index, 1);
+}
+
+function checkTabs() {
+	var tabid;
+	for (tabid of tabs) {
+		chrome.tabs.get(tabid, function (tab) {
+			if (chrome.runtime.lastError) {
+				console.log(chrome.runtime.lastError);
+			}
+			if (!tab) {
+				removeTab(tabid);
+			}
+		});
+	}
+};
+
 chrome.extension.onMessage.addListener((message, sender, sendResponse) => {
     if (message && message.type == 'successTicketing') {
         playSound();
@@ -32,6 +60,15 @@ chrome.extension.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse(true);
     }
     else if (message && message.type == 'tabId') {
+	addTab(sender.tab.id);
 	sendResponse(sender.tab.id);
     }
+    else if (message && message.type == 'tabs') {
+	checkTabs();
+	sendResponse(tabs);
+    }
+});
+
+chrome.tabs.onRemoved.addListener(function (tabid, removed) {
+	removeTab(tabid);
 });
