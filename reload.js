@@ -1,6 +1,3 @@
-const TARGET_URL = "https://www.letskorail.com/ebizprd/EbizPrdTicketPr21111_i1.do";
-const PAGE_TIMEOUT = 15000;
-
 (() => {
 	if (!location.href.startsWith(TARGET_URL))
 		return;

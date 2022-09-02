@@ -10,16 +10,16 @@
 	"content_scripts": [
 		{
 			"all_frames": true,
+			"js": ["content_header.js", "reload.js"],
+			"matches": ["https://www.letskorail.com/*"],
+			"run_at": "document_start"
+		},
+		{
+			"all_frames": true,
 			"js": ["content.js"],
 			"css": ["content.css"],
 			"matches": ["https://www.letskorail.com/*"],
 			"run_at": "document_end"
-		},
-		{
-			"all_frames": true,
-			"js": ["reload.js"],
-			"matches": ["https://www.letskorail.com/*"],
-			"run_at": "document_start"
 		}
 	],
 	"background": {

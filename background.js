@@ -31,4 +31,7 @@ chrome.extension.onMessage.addListener((message, sender, sendResponse) => {
         sendTelegramMessage();
         sendResponse(true);
     }
+    else if (message && message.type == 'tabId') {
+	sendResponse(sender.tab.id);
+    }
 });
