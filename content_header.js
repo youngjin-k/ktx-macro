@@ -7,17 +7,17 @@ const POPUP_URI = "https://www.letskorail.com/docs/pz/pz_msg_pop1.jsp";
 const PAGE_TIMEOUT = 15000;
 
 const getTabStorageKey = (key) => {
-	return String(key) + String(tabId);
+	return String(key);// + String(tabId);
 };
 
 const getTabStorageItem = (key) => {
-	return localStorage.getItem(getTabStorageKey(key));
+	return sessionStorage.getItem(getTabStorageKey(key));
 };
 
 const setTabStorageItem = (key, value) => {
-	localStorage.setItem(getTabStorageKey(key), value);
+	sessionStorage.setItem(getTabStorageKey(key), value);
 };
 
 const removeTabStorageItem = (key) => {
-	localStorage.removeItem(getTabStorageKey(key));
+	sessionStorage.removeItem(getTabStorageKey(key));
 };
