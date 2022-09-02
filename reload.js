@@ -1,4 +1,4 @@
-const initialize_reload = (tabId) => {
+const initialize_reload = () => {
 	const isStarted = getTabStorageItem("macro") === "on";
 	getTabStorageItem('macro');
 	if (isStarted) {
