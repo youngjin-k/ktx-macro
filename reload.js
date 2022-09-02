@@ -1,8 +1,6 @@
-(() => {
-	if (!location.href.startsWith(TARGET_URL))
-		return;
-
-	const isStarted = localStorage.getItem("macro") === "on";
+const initialize_reload = (tabId) => {
+	const isStarted = getTabStorageItem("macro") === "on";
+	getTabStorageItem('macro');
 	if (isStarted) {
 		console.log('reload in ' + (PAGE_TIMEOUT / 1000) + ' seconds');
 		window.setTimeout(

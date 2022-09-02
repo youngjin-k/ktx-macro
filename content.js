@@ -19,7 +19,7 @@ const createCheckbox = () => {
 };
 
 const isChecked = uid => {
-	const checkedItemsStr = localStorage.getItem("checkedItems");
+	const checkedItemsStr = getTabStorageItem("checkedItems");
 	const checkedItems = checkedItemsStr ? checkedItemsStr.split(",") : [];
 
 	if (!checkedItems.length) {
@@ -72,7 +72,7 @@ const macroStart = () => {
 		return;
 	}
 
-	if (!localStorage.getItem("checkedItems")) {
+	if (!getTabStorageItem("checkedItems")) {
 		alert("선택 된 항목이 없습니다.\n1개 이상 선택해주세요.");
 		return;
 	}
@@ -83,15 +83,15 @@ const macroStart = () => {
 			"자동 예매 종료는 '자동 예매 정지' 혹은 esc키를 눌러주세요."
 	);
 
-	localStorage.setItem("macro", "on");
+	setTabStorageItem("macro", "on");
 
 	reload();
 };
 
 const macroStop = () => {
 	alert("자동 예매를 종료합니다.");
-	localStorage.removeItem("macro");
-	localStorage.removeItem("checkedItems");
+	removeTabStorageItem("macro");
+	removeTabStorageItem("checkedItems");
 
 	reload();
 };
@@ -122,7 +122,7 @@ const macro = () => {
 
 			if ($button) {
 				$button.closest("a").click();
-				localStorage.removeItem("macro");
+				removeTabStorageItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
 				succeeded = true;
 				break;
@@ -141,7 +141,7 @@ const macro = () => {
 
 			if ($button) {
 				$button.closest("a").click();
-				localStorage.removeItem("macro");
+				removeTabStorageItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
 				succeeded = true;
 				break;
@@ -155,7 +155,7 @@ const macro = () => {
 
 			if ($button) {
 				$button.closest("a").click();
-				localStorage.removeItem("macro");
+				removeTabStorageItem("macro");
 				chrome.extension.sendMessage({ type: "successTicketing" });
 				succeeded = true;
 				break;
@@ -244,9 +244,9 @@ const saveCheckboxState = () => {
 	}
 
 	if (checkedItems.length) {
-		localStorage.setItem("checkedItems", checkedItems.join(","));
+		setTabStorageItem("checkedItems", checkedItems.join(","));
 	} else {
-		localStorage.removeItem("checkedItems");
+		removeTabStorageItem("checkedItems");
 	}
 };
 
@@ -259,37 +259,16 @@ const checkAllCheckbox = () => {
 	saveCheckboxState();
 };
 
-(() => {
-	if (location.href.startsWith(POPUP_URI)) {
-		if (!document.querySelector(".btn_blue_ang"))
-			return;
+const initialize = () => {
+	console.log("tabId: " + tabId);
 
-		var s = document.createElement('script');
-		s.innerHTML = `
-			var btn_blue_ang = document.querySelector('.btn_blue_ang');
-			if (btn_blue_ang.text.indexOf('예매 계속 진행하기') != -1) {
-				console.log('close popup');
-				setTimeout(f_close, 1000);
-			};
-		`;
-		document.body.appendChild(s);
-		return;
-	}
-
-	if (
-		!document.querySelector(".btn_inq") ||
-		!location.href.startsWith(MAIN_URI)
-	) {
-		return;
-	}
-
-	const isStarted = localStorage.getItem("macro") === "on";
+	const isStarted = getTabStorageItem("macro") == "on";
 
 	if (isStarted) {
 		macro();
 		setEscapeEvent();
 	} else {
-		localStorage.removeItem("checkedItems");
+		removeTabStorageItem("checkedItems");
 	}
 
 	document.querySelector(".btn_inq").insertAdjacentHTML(
@@ -317,4 +296,22 @@ const checkAllCheckbox = () => {
 	ignoreNonstopPopup();
 	ignoreConfirmPeople();
 	ignoreDailyPopup();
+};
+
+(() => {
+	if (location.href.startsWith(POPUP_URI)) {
+		closeNonstopPopup();
+		return;
+	}
+	else if (!location.href.startsWith(MAIN_URI) || !document.querySelector(".btn_inq")) {
+		return;
+	}
+
+	chrome.extension.sendMessage(
+		{type: 'tabId'}, 
+		function (result) {
+			tabId = result;
+			initialize();
+		}
+	);
 })();
