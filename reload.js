@@ -10,4 +10,17 @@ const initialize_reload = (tabId) => {
 			PAGE_TIMEOUT
 		);
 	}
+};
+
+(() => {
+	if (!location.href.startsWith(MAIN_URI))
+		return;
+
+	chrome.extension.sendMessage(
+		{type: 'tabId'}, 
+		function (result) {
+			tabId = result;
+			initialize_reload();
+		}
+	);
 })();
