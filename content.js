@@ -176,6 +176,23 @@ const reload = () => {
 	document.querySelector(".btn_inq > a").click();
 };
 
+//nonstop 팝업 자동 닫기
+const closeNonstopPopup = () => {
+
+	if (!document.querySelector(".btn_blue_ang"))
+		return;
+
+	var s = document.createElement('script');
+	s.innerHTML = `
+		var btn_blue_ang = document.querySelector('.btn_blue_ang');
+		if (btn_blue_ang.text.indexOf('예매 계속 진행하기') != -1) {
+			console.log('close popup');
+			setTimeout(f_close, 1000);
+		};
+	`;
+	document.body.appendChild(s);
+};
+
 //nonstop 팝업 무시
 const ignoreNonstopPopup = () => {
 	var s = document.createElement('script');
