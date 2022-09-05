@@ -196,8 +196,10 @@ const macro = () => {
 
 		if (isChecked(++uid)) {
 			$row.querySelector("td:nth-child(10)").style.backgroundColor = "#f03e3e";
-			const $button = $row.querySelector("td:nth-child(10)")
-													.querySelector('[src="/docs/2007/img/common/icon_wait.gif"]');
+			const $button = 
+				$row
+					.querySelector("td:nth-child(10)")
+					.querySelector('[src="/docs/2007/img/common/icon_wait.gif"]');
 
 			if ($button) {
 				$button.closest("a").click();
