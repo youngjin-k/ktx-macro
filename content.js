@@ -10,7 +10,7 @@ const createHeaderCheckbox = () => {
 			`
 				<div>
 					<label>
-						<input type="checkbox" value="${col}" class="ktx-macro-header-checkbox">
+						<input type="checkbox" data-column="${col}" class="ktx-macro-header-checkbox">
 						매크로
 					</label>
 				</div>
@@ -31,7 +31,7 @@ const setHeaderCheckboxEvent = () => {
 
 const changeHeaderCheckbox = (event) => {
 	const rows = document.querySelectorAll("#tableResult > tbody > tr");
-	const child_num = event.target.value;
+	const child_num = event.target.dataset.column;
 
 	if (!rows || !rows.length) {
 		return;
