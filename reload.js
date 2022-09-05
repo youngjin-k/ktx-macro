@@ -2,8 +2,9 @@ const initialize_reload = () => {
 	const isStarted = getTabStorageItem("macro") === "on";
 	if (isStarted) {
 		console.log('reload in ' + (PAGE_TIMEOUT / 1000) + ' seconds');
-		window.setTimeout(
+		reloadTimeoutID = window.setTimeout(
 			function () {
+				console.log('force reload');
 				location.reload();
 			},
 			PAGE_TIMEOUT

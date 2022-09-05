@@ -313,6 +313,11 @@ const initialize = () => {
 	const isStarted = getTabStorageItem("macro") == "on";
 
 	if (isStarted) {
+		if (reloadTimeoutID) {
+			console.log('stop realod timer ' + reloadTimeoutID);
+			window.clearTimeout(reloadTimeoutID);
+			reloadTimeoutID = null;
+		}
 		macro();
 		setEscapeEvent();
 	} else {
