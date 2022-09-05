@@ -1,3 +1,49 @@
+const CHECKBOX_COLUMN = [5, 6, 10];
+
+const createHeaderCheckbox = () => {
+	const row = document.querySelector("#tableResult > thead > tr");
+	var child;
+
+	for (var col of CHECKBOX_COLUMN) {
+		child = row.querySelector(`th:nth-child(${col})`);
+		child.insertAdjacentHTML("beforeend", 
+			`
+				<div>
+					<label>
+						<input type="checkbox" value="${col}" class="ktx-macro-header-checkbox">
+						매크로
+					</label>
+				</div>
+			`
+		);
+	}
+
+};
+
+const setHeaderCheckboxEvent = () => {
+	const header = document.querySelector("#tableResult > thead > tr");
+
+	for (var col of CHECKBOX_COLUMN) {
+		header.querySelector(`th:nth-child(${col}) .ktx-macro-header-checkbox`)
+			.addEventListener('change', changeHeaderCheckbox);
+	}
+};
+
+const changeHeaderCheckbox = (event) => {
+	const rows = document.querySelectorAll("#tableResult > tbody > tr");
+	const child_num = event.target.value;
+
+	if (!rows || !rows.length) {
+		return;
+	}
+
+	rows.forEach(row => {
+		row.querySelector(`td:nth-child(${child_num}) .ktx-macro-checkbox`)
+			.checked = event.target.checked;
+	});
+	saveCheckboxState();
+};
+
 const createCheckbox = () => {
 	const $rows = document.querySelectorAll("#tableResult > tbody > tr");
 
@@ -291,7 +337,9 @@ const initialize = () => {
 		.querySelector(".check-all-button")
 		.addEventListener("click", checkAllCheckbox);
 
+	createHeaderCheckbox();
 	createCheckbox();
+	setHeaderCheckboxEvent();
 	setCheckboxEvent();
 	ignoreNonstopPopup();
 	ignoreConfirmPeople();
