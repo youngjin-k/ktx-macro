@@ -314,7 +314,7 @@ const initialize = () => {
 
 	if (isStarted) {
 		if (reloadTimeoutID) {
-			console.log('stop realod timer ' + reloadTimeoutID);
+			console.log('stop reload timer ' + reloadTimeoutID);
 			window.clearTimeout(reloadTimeoutID);
 			reloadTimeoutID = null;
 		}
