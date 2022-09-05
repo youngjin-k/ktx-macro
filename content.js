@@ -1,4 +1,17 @@
 const CHECKBOX_COLUMN = [5, 6, 10];
+let checkboxLastClickPos = {"row": -1, "column": -1};
+
+const getTableResult = () => {
+	return document.querySelectorAll("#tableResult > tbody > tr");
+};
+
+const getTableResultColumn = (row, column) => {
+	return getTableResult()[row].querySelector(`td:nth-child(${column})`);
+};
+
+const getTableResultCheckbox = (objRow, column) => {
+	return objRow.querySelector(`td:nth-child(${column}) .ktx-macro-checkbox`);
+};
 
 const createHeaderCheckbox = () => {
 	const row = document.querySelector("#tableResult > thead > tr");
@@ -37,7 +50,7 @@ const changeHeaderCheckbox = (event) => {
 		return;
 	}
 
-	rows.forEach(row => {
+	rows.forEach((row) => {
 		row.querySelector(`td:nth-child(${child_num}) .ktx-macro-checkbox`)
 			.checked = event.target.checked;
 	});
@@ -45,22 +58,18 @@ const changeHeaderCheckbox = (event) => {
 };
 
 const createCheckbox = () => {
-	const $rows = document.querySelectorAll("#tableResult > tbody > tr");
+	const rows = document.querySelectorAll("#tableResult > tbody > tr");
 
-	if (!$rows.length) {
+	if (!rows.length) {
 		return;
 	}
 
-	$rows.forEach($row => {
-		$row
-			.querySelector("td:nth-child(5)")
-			.insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
-		$row
-			.querySelector("td:nth-child(6)")
-			.insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
-		$row
-			.querySelector("td:nth-child(10)")
-			.insertAdjacentHTML("beforeend", getCheckboxTemplate(uid++));
+	rows.forEach((o, row) => {
+		for (var col of CHECKBOX_COLUMN) {
+			o.querySelector(`td:nth-child(${col})`)
+				.insertAdjacentHTML("beforeend", 
+					getCheckboxTemplate(uid++, row, col));
+		}
 	});
 };
 
@@ -77,7 +86,7 @@ const isChecked = uid => {
 
 const isLogin = () => !!document.querySelectorAll(".gnb_list > .log_nm").length;
 
-const getCheckboxTemplate = uid => {
+const getCheckboxTemplate = (uid, row, column) => {
 	if (!uid) {
 		return;
 	}
@@ -85,7 +94,14 @@ const getCheckboxTemplate = uid => {
 	return `
 		<div>
 			<label>
-				<input type="checkbox" class="ktx-macro-checkbox" value="${uid}" ${isChecked(uid) && "checked"}>
+				<input 
+					type="checkbox" 
+					class="ktx-macro-checkbox" 
+					value="${uid}" 
+					${isChecked(uid) && "checked"}
+					data-row="${row}"
+					data-column="${column}"
+				>
 				매크로
 			</label>
 		</div>
@@ -96,9 +112,7 @@ const setCheckboxEvent = () => {
 	const $checkboxes = document.querySelectorAll(".ktx-macro-checkbox");
 
 	for (let i = 0; i < $checkboxes.length; i++) {
-		$checkboxes[i].addEventListener("click", () => {
-			saveCheckboxState();
-		});
+		$checkboxes[i].addEventListener("click", clickCheckbox);
 	}
 };
 
@@ -280,6 +294,55 @@ const ignoreDailyPopup = () => {
 	`;
 	document.body.appendChild(s);
 }
+
+const clickCheckbox = (event) => {
+	var multi_check = false;
+	const curr_row = Number(event.target.dataset.row);
+	const curr_col = Number(event.target.dataset.column);
+	const prev_row = Number(checkboxLastClickPos.row);
+	const prev_col = Number(checkboxLastClickPos.column);
+	//console.log('checkbox row=' + event.target.dataset.row + ' column=' + event.target.dataset.column);
+	do {
+		if (!event.shiftKey || event.ctrlKey || event.altKey)
+			break;
+		if (prev_row == -1 || prev_col == -1)
+			break;
+		if (curr_col != prev_col)
+			break;
+		if (curr_row == prev_row)
+			break;
+
+		const objRows = getTableResult();
+		var objCol;
+		var start, end;
+		multi_check = true;
+
+		if (curr_row > prev_row) {
+			start = prev_row;
+			end = curr_row - 1;
+		}
+		else {
+			start = curr_row + 1;
+			end = prev_row;
+		}
+
+		for (var i = start; i <= end; i++) {
+			//console.log('row=' + i + ', column=' + event.target.dataset.column);
+			objCol = getTableResultCheckbox(objRows[i], curr_col);
+			objCol.checked = event.target.checked;
+		}
+	}
+	while (0);
+
+	if (!multi_check) {
+		checkboxLastClickPos.row = curr_row;
+		checkboxLastClickPos.column = curr_col;
+		if (prev_row != -1 && prev_col != -1)
+			getTableResultColumn(prev_row, prev_col).style.backgroundColor = "";
+		getTableResultColumn(curr_row, curr_col).style.backgroundColor = "#ccccff";
+	}
+	saveCheckboxState();
+};
 
 const saveCheckboxState = () => {
 	let checkedItems = [];
