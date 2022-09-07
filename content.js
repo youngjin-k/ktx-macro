@@ -286,7 +286,7 @@ const ignoreConfirmPeople = () => {
 //일일 팝업 무시
 const ignoreDailyPopup = () => {
 	var s = document.createElement('script');
-	s.innerHTML = `;
+	s.innerHTML = `
 		if (typeof(openGwangjuShuttleDialog) == 'function') {
 			console.log('disable openGwangjuShuttleDialog');
 			openGwangjuShuttleDialog = function () {};
