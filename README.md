@@ -1,6 +1,6 @@
-# KTX Macro
+**이 확장 프로그램은 더 이상 업데이트 계획이 없습니다. 크롬 스토어에서는 2023년 1월 1일자로 크롬 정책(manifest 관련)에 따라 자동으로 게시가 중단 될 예정입니다. 그동안 ktx-macro 확장 프로그램을 사용해주셔서 감사합니다.**
 
-<a href="https://www.buymeacoffee.com/youngjin" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+# KTX Macro
 
 KTX Macro는 매진된 KTX 승차권 예매를 자동으로 수행해주는 크롬 확장 프로그램입니다.
 
