@@ -1,9 +1,10 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "KTX Macro",
 	"description": "KTX 매진 좌석 예약 도구",
 	"version": "1.4.0",
-	"permissions": ["https://www.letskorail.com/"],
+	"permissions": ["scripting", "storage"],
+	"host_permissions": ["https://www.letskorail.com/"],
 	"icons": {
 		"96": "icon96.png"
 	},
@@ -23,10 +24,13 @@
 		}
 	],
 	"background": {
-		"page": "background.html"
+		"service_worker": "background.js"
 	},
-	"web_accessible_resources": ["inject.js", "assets/tada.mp3"],
-	"browser_action": {
+	"web_accessible_resources": [{
+		"resources": ["inject.js", "inject_click.js", "tada.mp3"],
+		"matches": ["https://www.letskorail.com/*"]
+	}],
+	"action": {
 		"default_title": "telegram",
 		"default_popup": "popup.html"
 	}

@@ -181,9 +181,10 @@ const macro = () => {
 					.querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
 			if ($button) {
-				$button.closest("a").click();
+				new Audio(chrome.runtime.getURL("tada.mp3")).play();
 				removeTabStorageItem("macro");
-				chrome.extension.sendMessage({ type: "successTicketing" });
+				chrome.runtime.sendMessage({ type: "successTicketing" });
+				inject_click($button.closest("a"));
 				succeeded = true;
 				break;
 			}
@@ -200,9 +201,10 @@ const macro = () => {
 					.querySelector('[src="/docs/2007/img/common/icon_apm_rd.gif"]');
 
 			if ($button) {
-				$button.closest("a").click();
+				new Audio(chrome.runtime.getURL("tada.mp3")).play();
 				removeTabStorageItem("macro");
-				chrome.extension.sendMessage({ type: "successTicketing" });
+				chrome.runtime.sendMessage({ type: "successTicketing" });
+				inject_click($button.closest("a"));
 				succeeded = true;
 				break;
 			}
@@ -216,9 +218,10 @@ const macro = () => {
 					.querySelector('[src="/docs/2007/img/common/icon_wait.gif"]');
 
 			if ($button) {
-				$button.closest("a").click();
+				new Audio(chrome.runtime.getURL("tada.mp3")).play();
 				removeTabStorageItem("macro");
-				chrome.extension.sendMessage({ type: "successTicketing" });
+				chrome.runtime.sendMessage({ type: "successTicketing" });
+				inject_click($button.closest("a"));
 				succeeded = true;
 				break;
 			}
@@ -230,7 +233,20 @@ const macro = () => {
 };
 
 const reload = () => {
-	document.querySelector(".btn_inq > a").click();
+	inject_click(document.querySelector(".btn_inq > a"));
+};
+
+const inject_click = (obj) => {
+	console.log('inject_click: ' + obj);
+	var s = document.createElement('script');
+	obj.id = 'ktx-macro-click';
+
+	s.src = chrome.runtime.getURL('inject_click.js');
+	s.onload = function () {
+		obj.removeAttribute('id');
+		this.remove();
+	};
+	(document.head || document.documentElement).appendChild(s);
 };
 
 //nonstop 팝업 자동 닫기
@@ -370,6 +386,17 @@ const checkAllCheckbox = () => {
 	saveCheckboxState();
 };
 
+const inject = () => {
+	var s= document.createElement('script');
+	s.src = chrome.runtime.getURL('inject.js');
+	s.setAttribute('value', 'passed?');
+	s.onload = function () {
+		console.log('inject onload');
+		this.remove();
+	};
+	(document.head || document.documentElement).appendChild(s);
+};
+
 const initialize = () => {
 	console.log("tabId: " + tabId);
 
@@ -411,9 +438,10 @@ const initialize = () => {
 	createCheckbox();
 	setHeaderCheckboxEvent();
 	setCheckboxEvent();
-	ignoreNonstopPopup();
-	ignoreConfirmPeople();
-	ignoreDailyPopup();
+	//ignoreNonstopPopup();
+	//ignoreConfirmPeople();
+	//ignoreDailyPopup();
+	inject();
 };
 
 (() => {
@@ -425,7 +453,7 @@ const initialize = () => {
 		return;
 	}
 
-	chrome.extension.sendMessage(
+	chrome.runtime.sendMessage(
 		{type: 'tabId'}, 
 		function (result) {
 			tabId = result;

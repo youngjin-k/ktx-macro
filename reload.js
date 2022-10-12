@@ -16,7 +16,7 @@ const initialize_reload = () => {
 	if (!location.href.startsWith(MAIN_URI))
 		return;
 
-	chrome.extension.sendMessage(
+	chrome.runtime.sendMessage(
 		{type: 'tabId'}, 
 		function (result) {
 			tabId = result;

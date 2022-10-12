@@ -56,5 +56,5 @@ const removeTabStorageItem = (key) => {
 
 (() => {
 	//console.log("content_header");
-	chrome.extension.sendMessage({type: 'tabs'}, removeUnusedTabStorage);
+	chrome.runtime.sendMessage({type: 'tabs'}, removeUnusedTabStorage);
 })();
