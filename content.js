@@ -397,6 +397,17 @@ const inject = () => {
 	(document.head || document.documentElement).appendChild(s);
 };
 
+const inject_nonstop_popup = () => {
+	var s= document.createElement('script');
+	s.src = chrome.runtime.getURL('inject_nonstop_popup.js');
+	s.onload = function () {
+		console.log('inject_nonstop_popup onload');
+		this.remove();
+	};
+	(document.head || document.documentElement).appendChild(s);
+};
+
+
 const initialize = () => {
 	console.log("tabId: " + tabId);
 
@@ -446,7 +457,7 @@ const initialize = () => {
 
 (() => {
 	if (location.href.startsWith(POPUP_URI)) {
-		closeNonstopPopup();
+		inject_nonstop_popup();
 		return;
 	}
 	else if (!location.href.startsWith(MAIN_URI) || !document.querySelector(".btn_inq")) {

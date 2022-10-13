@@ -27,7 +27,12 @@
 		"service_worker": "background.js"
 	},
 	"web_accessible_resources": [{
-		"resources": ["inject.js", "inject_click.js", "tada.mp3"],
+		"resources": [
+			"inject.js", 
+			"inject_click.js", 
+			"inject_nonstop_popup.js",
+			"tada.mp3"
+		],
 		"matches": ["https://www.letskorail.com/*"]
 	}],
 	"action": {
