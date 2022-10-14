@@ -243,7 +243,6 @@ const inject_click = (obj) => {
 
 	s.src = chrome.runtime.getURL('inject_click.js');
 	s.onload = function () {
-		obj.removeAttribute('id');
 		this.remove();
 	};
 	(document.head || document.documentElement).appendChild(s);
