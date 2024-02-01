@@ -1,27 +1,42 @@
 {
-  "manifest_version": 2,
-  "name": "KTX Macro",
-  "description": "KTX 매진 좌석 예약 도구",
-  "version": "1.4.0",
-  "permissions": ["https://www.letskorail.com/"],
-  "icons": {
-    "96": "icon96.png"
-  },
-  "content_scripts": [
-    {
-      "all_frames": true,
-      "js": ["content.js"],
-      "css": ["content.css"],
-      "matches": ["https://www.letskorail.com/*"],
-      "run_at": "document_end"
-    }
-  ],
-  "background": {
-    "page": "background.html"
-  },
-  "web_accessible_resources": ["inject.js", "assets/tada.mp3"],
-  "browser_action": {
-    "default_title": "telegram",
-    "default_popup": "popup.html"
-  }
+	"manifest_version": 3,
+	"name": "KTX Macro",
+	"description": "KTX 매진 좌석 예약 도구",
+	"version": "1.4.0",
+	"permissions": ["scripting", "storage"],
+	"host_permissions": ["https://www.letskorail.com/"],
+	"icons": {
+		"96": "icon96.png"
+	},
+	"content_scripts": [
+		{
+			"all_frames": true,
+			"js": ["content_header.js", "reload.js"],
+			"matches": ["https://www.letskorail.com/*"],
+			"run_at": "document_start"
+		},
+		{
+			"all_frames": true,
+			"js": ["content.js"],
+			"css": ["content.css"],
+			"matches": ["https://www.letskorail.com/*"],
+			"run_at": "document_end"
+		}
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"web_accessible_resources": [{
+		"resources": [
+			"inject.js", 
+			"inject_click.js", 
+			"inject_nonstop_popup.js",
+			"tada.mp3"
+		],
+		"matches": ["https://www.letskorail.com/*"]
+	}],
+	"action": {
+		"default_title": "telegram",
+		"default_popup": "popup.html"
+	}
 }
